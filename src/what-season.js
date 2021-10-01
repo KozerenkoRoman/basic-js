@@ -13,9 +13,11 @@ export default function getSeason(date) {
     function between(x, min, max) {
         return x >= min && x <= max;
     }
+    if (!date) return 'Unable to determine the time of year!';
 
-    if (date == undefined || !date) throw new Error('Unable to determine the time of year!');
-    if (!(date instanceof Date) || Object.getOwnPropertyNames(date).length > 0) throw new Error('Invalid date!');
+    if (Object.getOwnPropertyNames(date).length > 0 || (Object.prototype.toString.call(date) !== '[object Date]')) {
+        throw new Error('Invalid date!');
+    }
 
     const month = date.getMonth() + 1;
 
