@@ -1,4 +1,3 @@
-import { NotImplementedError } from '../extensions/index.js';
 /**
  * Implement class DepthCalculator with method calculateDepth
  * that calculates deoth of nested array
@@ -13,8 +12,11 @@ import { NotImplementedError } from '../extensions/index.js';
  */
 export default class DepthCalculator {
     calculateDepth(arr) {
-        return arr.length + arr.reduce(function (sum, item) {
-            return Array.isArray(item) ? sum + this.calculateDepth(item) : sum
-        }, 0)
+        let sum = 0;
+        arr.forEach(item => {
+            if (Array.isArray(item)) sum = this.calculateDepth(item);
+        });
+        return sum + 1;
     }
 };
+
