@@ -73,6 +73,4 @@ export default class VigenereCipheringMachine {
         }
         return this.direct ? result : result.split('').reverse().join('');
     }
-
-
 }
