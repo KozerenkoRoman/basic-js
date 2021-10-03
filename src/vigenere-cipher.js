@@ -23,10 +23,6 @@ export default class VigenereCipheringMachine {
         this.direct = arguments == null || arguments;
     }
 
-    // getCharacter(letter) {
-    //     return this.alphabet.includes(letter.toUpperCase()) ? letter.toUpperCase() : '';
-    // }
-
     getKey(message, key) {
         while (message.length > key.length) key += key;
         return key.toUpperCase();
@@ -42,42 +38,40 @@ export default class VigenereCipheringMachine {
 
     encrypt(message, key) {
         // Ci = (Pi + Kj) mod 33
-        let res = '';
         if (!message || !key) throw new Error('Incorrect arguments!');
+        let result = '';
+        message = message.toUpperCase();
         key = this.getKey(message, key);
 
         let j = 0;
         let vigenereSquare = this.getVigenereSquare();
         for (let i = 0; i < message.length; i++) {
-            if (this.alphabet.indexOf(message[i].toUpperCase()) < 0) {
-                res += message[i];
-            } else {
-                res += vigenereSquare[this.alphabet.indexOf(message[i].toUpperCase())][this.alphabet.indexOf(key[j])];
+            if (this.alphabet.includes(message[i])) {
+                result += vigenereSquare[this.alphabet.indexOf(message[i])][this.alphabet.indexOf(key[j])];
                 j++;
-            }
+            } else
+                result += message[i];
         }
-        return this.direct ? res : res.split('').reverse().join('');
+        return this.direct ? result : result.split('').reverse().join('');
     }
 
     decrypt(message, key) {
         //Ci = (Pi + 33 - Kj) mod 33
-        let res = '';
         if (!message || !key) throw new Error('Incorrect arguments!');
+        let result = '';
         key = this.getKey(message, key);
+        message = message.toUpperCase();
 
         let j = 0;
         let vigenereSquare = this.getVigenereSquare();
         for (let i = 0; i < message.length; i++) {
-            if (this.alphabet.indexOf(message[i].toUpperCase()) < 0) {
-                res += message[i];
-            } else {
-                // let row = this.alphabet.indexOf(key[j].toUpperCase());
-                // let col = vigenereSquare[this.alphabet.indexOf(key[j].toUpperCase())].indexOf(message[i].toUpperCase());
-                res += this.alphabet[vigenereSquare[this.alphabet.indexOf(key[j].toUpperCase())].indexOf(message[i].toUpperCase())];
+            if (this.alphabet.includes(message[i])) {
+                result += this.alphabet[vigenereSquare[this.alphabet.indexOf(key[j])].indexOf(message[i])];
                 j++;
-            }
+            } else
+                result += message[i];
         }
-        return this.direct ? res : res.split('').reverse().join('');
+        return this.direct ? result : result.split('').reverse().join('');
     }
 
 
