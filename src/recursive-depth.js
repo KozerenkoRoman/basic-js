@@ -14,7 +14,7 @@ export default class DepthCalculator {
     calculateDepth(arr) {
         let sum = 0;
         arr.forEach(item => {
-            if (Array.isArray(item)) sum = this.calculateDepth(item);
+            if (Array.isArray(item)) sum = Math.max(sum, this.calculateDepth(item));
         });
         return sum + 1;
     }
