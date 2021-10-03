@@ -13,8 +13,7 @@
 export default function getSumOfDigits(n) {
     if (n <= 9) return n;
     let sum = 0;
-    String(n).split('').forEach(item => {
-        // console.log('item=' + item + ', sum=' + sum);
+    n.toString().split('').forEach(item => {
         sum += Number(item);
     });
     return getSumOfDigits(sum);
