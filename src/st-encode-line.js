@@ -9,6 +9,7 @@
  *
  */
 export default function encodeLine(str) {
+    if (!str) return '';
     let last = str[0];
     let cnt = 0;
     let result = '';
